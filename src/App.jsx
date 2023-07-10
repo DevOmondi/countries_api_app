@@ -1,26 +1,48 @@
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+// import viteLogo from "/vite.svg";
+// import "./App.css";
+import axios from "axios";
+import { useState, useEffect, createContext } from "react";
+import Header from "./Components/Header";
+import SearchCountry from "./Components/SearchCountry";
+import CountryCard from "./Components/CountryCard";
+
+// Create darkTheme context
+export const darkThemeContext = createContext();
 
 function App() {
+  // countries data state management
+  const [countries, setCountries] = useState([]);
+  // darkTheme state management
+  const [darkTheme, setDarkTheme] = useState(false);
+  // TODO: Func to fetch countries data
+  async function fetchCountriesData() {
+    try {
+      const response = await axios.get("https://restcountries.com/v3.1/all");
+      const _data = response.data;
+      // console.log("countries data",_data)
+      setCountries(_data);
+      // console.log("countries", countries);
+    } catch (error) {
+      console.log("An error occured", error);
+    }
+  }
+  // Fetch countries data on page load
+  useEffect(() => {
+    fetchCountriesData();
+  }, []);
+  // TODO: Func to filter countries based on regions
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+   <darkThemeContext.Provider value={{darkTheme:darkTheme, setDarkTheme: setDarkTheme}}>
+     <div className={`h-[100%] text-[14px] ${darkTheme ? "bg-[#202c37]" : "bg-[#FAFAFA]"} ${darkTheme ? "text-[#ffffff]" : "text-[#111517]"} font-nunito`}>
+      <Header />
+      <SearchCountry countries={countries} setCountries={setCountries}/>
+      <div className="grid grid-cols-1 lg:grid-cols-4 lg:mx-[5rem] lg:gap-[5rem]">
+        {countries.map((country, index) => (
+          <CountryCard key={index} country={country} />
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card" style={{ fontSize: "28px" }}>
-        <p>Enjoy building this project</p>
-      </div>
-      <p style={{ fontSize: "24px" }} className="read-the-docs">
-        Countries API project
-      </p>
-    </>
+    </div>
+   </darkThemeContext.Provider>
   );
 }
 
