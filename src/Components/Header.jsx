@@ -6,12 +6,16 @@ import { darkThemeContext } from "../App";
 
 const Header = () => {
   const darkThemeBody = useContext(darkThemeContext);
-  const changeTheme = ()=>{
-    darkThemeBody.setDarkTheme(!darkThemeBody.darkTheme)
-  }
+  const changeTheme = () => {
+    darkThemeBody.setDarkTheme(!darkThemeBody.darkTheme);
+  };
   // console.log(darkThemeBody);
   return (
-    <div className={`flex justify-between ${darkThemeBody.darkTheme ? "bg-[#2b3945]" : "bg-[#FFF]"} items-center h-[4rem] p-3 shadow-lg lg:px-[5rem]`}>
+    <div
+      className={`flex justify-between ${
+        darkThemeBody.darkTheme ? "bg-[#2b3945]" : "bg-[#FFF]"
+      } items-center h-[4rem] p-3 shadow-lg lg:px-[5rem]`}
+    >
       <div>
         <p className="font-bold">Where in the world?</p>
       </div>

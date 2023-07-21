@@ -1,9 +1,9 @@
 // import React from 'react'
 import { CiSearch } from "react-icons/ci";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { darkThemeContext } from "../App";
 
-const SearchCountry = ({ countries, setCountries }) => {
+const SearchCountry = ({ setFilteredCountries, setSearchedCountry }) => {
   const darkThemeBody = useContext(darkThemeContext);
   // Regions object
   const Regions = {
@@ -13,31 +13,19 @@ const SearchCountry = ({ countries, setCountries }) => {
     Europe: { regionName: "Europe" },
     Oceania: { regionName: "Oceania" },
   };
-  // console.log("prop countries", countries);
-  // console.log("prop setter func", setCountries);
-  const [filterRegion, setFilterRegion] = useState("");
-
-  // TODO : Func to set region selected
+  // TODO: Func to handle search
+  const searchCountryFunc = (event) => {
+    event.preventDefault();
+    // console.log("searched country", event.target.value);
+    setSearchedCountry(event.target.value);
+  };
+  // TODO: Func to filter countries based on region
   const changeRegionFunc = (event) => {
     const _region = event.target.value;
-    setFilterRegion(Regions[_region].regionName);
+    // console.log("filterRegion:", _region);
+    setFilteredCountries(_region);
   };
-  console.log("filterRegion", filterRegion);
 
-  // TODO: Func to filter countries based on region
-  const handleRegionFilterFunc = () => {
-    const filteredCountries = countries.filter(
-      (country) => country.region === filterRegion
-    );
-    console.log("filtered countries", filteredCountries);
-    // setCountries(filteredCountries);
-    // setFilterRegion("");
-  };
-  //  TODO: Func to select region and filter
-  // function handleRegionChangeAndFilter() {
-  //   changeRegionFunc(Event);
-  //   handleRegionFilterFunc();
-  // }
   return (
     <div className="flex flex-col lg:flex-row lg:justify-between mt-[2.5rem] gap-[3rem]">
       {/* Search section */}
@@ -53,30 +41,22 @@ const SearchCountry = ({ countries, setCountries }) => {
           className={`focus:outline-none text-sm ${
             darkThemeBody.darkTheme ? "bg-[#2b3945]" : "bg-[#ffffff]"
           }`}
+          onChange={searchCountryFunc}
         />
       </div>
       {/* Filter section */}
       <div
-        className={`rounded shadow-lg p-3 lg:mr-[5rem] ml-[5%] w-[60%]  lg:w-auto ${
+        className={`rounded shadow-lg p-3 lg:mr-[5rem] ml-[5%] w-[50%]  lg:w-auto  ${
           darkThemeBody.darkTheme ? "bg-[#2b3945]" : "bg-[#ffffff]"
         }`}
       >
-        {/* <input
-          type="text"
-          placeholder="Filter by region..."
-          className="focus:outline-none text-sm"
-        /> */}
         <select
           id="regions"
           defaultValue=""
           className={`focus:outline-none rounded ${
             darkThemeBody.darkTheme ? "bg-[#2b3945]" : "bg-[#ffffff]"
           }`}
-          // onChange={changeRegionFunc}
-          onChange={(event) => {
-            changeRegionFunc(event);
-            handleRegionFilterFunc();
-          }}
+          onChange={changeRegionFunc}
         >
           <option hidden value="" defaultValue>
             Filter by region
