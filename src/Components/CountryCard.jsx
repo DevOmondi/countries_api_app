@@ -1,7 +1,7 @@
 // import React from 'react'
 // import germanFlag from "../assets/german_flag.jpg";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { darkThemeContext } from "../App";
 
@@ -25,8 +25,8 @@ const CountryCard = ({ country }) => {
   // Fetch individual country data on page load
   useEffect(() => {
     fetchSingleCountryData();
-  }, []);
-
+  }, [country.name.common]);
+  // Dark theme context body
   const darkThemeBody = useContext(darkThemeContext);
   return (
     <div

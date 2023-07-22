@@ -14,7 +14,7 @@ const CountryPage = () => {
   };
   // Receive data from country card component
   const { state } = useLocation();
-  console.log("country data is:", state);
+  // console.log("country data is:", state);
 
   // const langObject = state.map((countryObject)=> countryObject.languages)
   // console.log(langObject)

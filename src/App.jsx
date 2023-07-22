@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ThreeDots } from "react-loader-spinner";
+import { RotatingTriangles } from "react-loader-spinner";
 import { useState, useEffect, createContext } from "react";
 import Header from "./Components/Header";
 import SearchCountry from "./Components/SearchCountry";
@@ -34,7 +34,6 @@ function App() {
   }
   // Fetch countries data on page load
   useEffect(() => {
-    // fetchLocalData();
     fetchCountriesData();
   }, []);
   //  TODO: Func to update countries array on filter
@@ -75,17 +74,20 @@ function App() {
           setFilteredCountries={setFilteredCountries}
           setSearchedCountry={setSearchedCountry}
         />
-        {/* <CountryPage /> */}
+
         {isLoading ? (
-          <ThreeDots
+          <RotatingTriangles
+            visible={true}
             height="80"
             width="80"
-            radius="9"
-            color={darkTheme ? "#ffffff" : "#111517"}
-            ariaLabel="three-dots-loading"
+            colors={
+              darkTheme
+                ? ["#ffffff", "#ffffff", "#ffffff"]
+                : ["#111517", "#111517", "#111517"]
+            }
+            ariaLabel="rotating-triangels-loading"
             wrapperStyle={{}}
-            wrapperClass={`mx-auto`}
-            visible={true}
+            wrapperClass={`mx-auto my-[2rem]`}
           />
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-4 lg:mx-[5rem] lg:gap-[5rem] min-h-screen">
