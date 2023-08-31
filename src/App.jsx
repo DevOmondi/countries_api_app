@@ -29,7 +29,8 @@ function App() {
       setIsLoading(false);
       // console.log("countries", countries);
     } catch (error) {
-      console.log("An error occured:", error);
+      alert("An error occured:", error);
+      setIsLoading(false);
     }
   }
   // Fetch countries data on page load
@@ -65,7 +66,7 @@ function App() {
       value={{ darkTheme: darkTheme, setDarkTheme: setDarkTheme }}
     >
       <div
-        className={`h-[100%] text-[14px] ${
+        className={`h-[100vh] overflow-auto text-[14px] ${
           darkTheme ? "bg-[#202c37]" : "bg-[#FAFAFA]"
         } ${darkTheme ? "text-[#ffffff]" : "text-[#111517]"} font-nunito`}
       >
